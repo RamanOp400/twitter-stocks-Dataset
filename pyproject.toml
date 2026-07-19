@@ -1,12 +1,14 @@
 [project]
 name = "src"
 version = "0.0.1"
-discription = "A python program for time series analysis and forcasting and full on MLOPS"
+description = "A python program for time series analysis and forcasting and full on MLOPS"
 authors = [
-    {"name" = "Raman sarkar","email" = "ramansarkar@example.com"}
+    { name = "Raman sarkar", email = "ramansarkar@example.com" }
 ]
+dynamic = ["dependencies"]
+
 [tool.setuptools]
-package = {find = {}}
+packages = {find = {}}
 
 [tool.setuptools.dynamic]
-dependencies = {file = "requirements.txt"}
+dependencies = {file = ["requirements.txt"]}
