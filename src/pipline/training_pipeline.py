@@ -3,10 +3,16 @@ import os
 from src.exception import CustomException
 from src.logger import logggggg
 from src.components.data_ingestion import DataIngestion_Raman
-from src.entity.config_entity import (ingestion_config,data_validation_config,data_transformation_config)
-from src.entity.artifact_entity import (instesgtion_artifact,data_validation_artifact,data_transformation_artifact)
+from src.entity.config_entity import (ingestion_config,data_validation_config,
+                                      data_transformation_config,
+                                      model_trainer_config)
+from src.entity.artifact_entity import (instesgtion_artifact,data_validation_artifact,
+                                        data_transformation_artifact,
+                                        model_training_artifact)
 from src.components.data_validation import DataValidation
 from src.components.data_transformation import DataTransformation
+from src.components.model_evaluation import Model_Training
+
 # lets build and pipe line class uff this oops 
 
 class TrainingPipeline:
@@ -18,6 +24,7 @@ class TrainingPipeline:
         self.ingestion_config = ingestion_config()
         self.data_validation_config = data_validation_config()
         self.data_transformation_config = data_transformation_config()
+        self.model_trainer_config = model_trainer_config()
 
     def start_data_ingestion(self) -> instesgtion_artifact:
         """
@@ -96,6 +103,23 @@ class TrainingPipeline:
             logger.error(f"Error during data transformation: {e}")
             raise CustomException(e, sys)
 
+    def start_model_training(self):
+        """
+        Starts the model training process and returns the training artifact.
+
+        Returns:
+            model_training_artifact: The artifact containing information about the trained model.
+        """
+        try:
+            logger = logggggg()
+            logger.info("Starting model training process.")
+            model_training = Model_Training(data_transformation_artifact=self.start_data_transformation())
+            training_artifact = model_training.initiate_model_training()
+            return training_artifact
+        except Exception as e:
+            logger.error(f"Error during model training: {e}")
+            raise CustomException(e, sys)
+
 
 
 
@@ -116,6 +140,9 @@ class TrainingPipeline:
             # Start data transformation and get the artifact
             transformation_artifact = self.start_data_transformation()
 
+            # Start model training and get the artifact
+            training_artifact = self.start_model_training()
+            
             logger.info("Training pipeline completed successfully.")
         
         except Exception as e:

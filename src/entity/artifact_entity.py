@@ -24,3 +24,13 @@ class data_transformation_artifact:
     x_test_file_path : str
     y_train_file_path : str
     y_test_file_path : str
+
+
+@dataclass 
+class model_training_artifact:
+    """
+     Model training artifact class to store the parameters required for model training.
+
+    """
+    model_save_file : float
+    evaluation_report : float

@@ -59,3 +59,13 @@ DATA_TRANSFORMATION_TRAIN_FILE_NAME : str = "X_train.csv"
 DATA_TRANSFORMATION_TEST_FILE_NAME : str = "X_test.csv"
 DATA_TRANSFORMATION_TRAIN_TARGET_FILE_NAME : str = "Y_train.csv"
 DATA_TRANSFORMATION_TEST_TARGET_FILE_NAME : str = "Y_test.csv"
+
+
+# -------------------------------------------------------
+# MODEL TRAINING PARAMETERS AND EVALUATION PARAMETERS
+# -------------------------------------------------------
+MODEL_TRAINING_DIR : str = "model_training"
+MODEL_SAVED_DIR : str = "model_saved"
+MODEL_FILE_NAME : str = "model.pkl"
+MODEL_EVALUATION_DIR : str = "model_evaluation"
+MODEL_EVALUATION_REPORT_FILE_NAME : str = "model_evaluation_report.yaml"

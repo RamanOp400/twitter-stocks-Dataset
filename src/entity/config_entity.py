@@ -52,5 +52,15 @@ class data_transformation_config:
     data_transformation_train_target_file_path = os.path.join(data_transformation_dir, DATA_TRANSFORMATION_TRAIN_TARGET_FILE_NAME)
     data_transformation_test_target_file_path = os.path.join(data_transformation_dir, DATA_TRANSFORMATION_TEST_TARGET_FILE_NAME)
 
+@dataclass 
+class model_trainer_config:
+    """
+     Model training configuration class to store the parameters required for model training.
 
+    """
+    model_training_dir = os.path.join(training_pipeline_config.artifact_dir, MODEL_TRAINING_DIR)
+    model_saved_dir = os.path.join(model_training_dir, MODEL_SAVED_DIR)
+    model_file_path = os.path.join(model_saved_dir, MODEL_FILE_NAME)
+    model_training_expected_accuracy = os.path.join(model_training_dir,MODEL_EVALUATION_DIR)
+    model_training_expected_accuracy_file_path = os.path.join(model_training_expected_accuracy,MODEL_EVALUATION_REPORT_FILE_NAME)
 
