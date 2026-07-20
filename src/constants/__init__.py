@@ -69,3 +69,9 @@ MODEL_SAVED_DIR : str = "model_saved"
 MODEL_FILE_NAME : str = "model.pkl"
 MODEL_EVALUATION_DIR : str = "model_evaluation"
 MODEL_EVALUATION_REPORT_FILE_NAME : str = "model_evaluation_report.yaml"
+
+#--------------------------------------------------------
+# MODEL PUSHER PARAMETERS
+#--------------------------------------------------------
+MODEL_PUSHER_DIR : str = "model_pusher"
+MODEL_PUSHER_SAVED_DIR : str = "saved_model.yaml"

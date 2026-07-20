@@ -64,3 +64,11 @@ class model_trainer_config:
     model_training_expected_accuracy = os.path.join(model_training_dir,MODEL_EVALUATION_DIR)
     model_training_expected_accuracy_file_path = os.path.join(model_training_expected_accuracy,MODEL_EVALUATION_REPORT_FILE_NAME)
 
+@dataclass
+class model_prediction_report_config:
+    """
+     Model prediction report configuration class to store the parameters required for generating prediction reports.
+
+    """
+    model_prediction_report_dir = os.path.join(training_pipeline_config.artifact_dir, MODEL_PUSHER_DIR)
+    model_prediction_report_saved_dir = os.path.join(model_prediction_report_dir, MODEL_PUSHER_SAVED_DIR)                     

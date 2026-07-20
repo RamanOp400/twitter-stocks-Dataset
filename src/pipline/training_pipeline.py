@@ -3,16 +3,16 @@ import os
 from src.exception import CustomException
 from src.logger import logggggg
 from src.components.data_ingestion import DataIngestion_Raman
-from src.entity.config_entity import (ingestion_config,data_validation_config,
+from src.entity.config_entity import (ingestion_config, data_validation_config,
                                       data_transformation_config,
-                                      model_trainer_config)
-from src.entity.artifact_entity import (instesgtion_artifact,data_validation_artifact,
+                                      model_trainer_config, model_prediction_report_config)
+from src.entity.artifact_entity import (instesgtion_artifact, data_validation_artifact,
                                         data_transformation_artifact,
-                                        model_training_artifact)
+                                        model_training_artifact, model_prediction_report_artifact)
 from src.components.data_validation import DataValidation
 from src.components.data_transformation import DataTransformation
 from src.components.model_evaluation import Model_Training
-
+from src.components.model_pusher import Model_Pusher
 # lets build and pipe line class uff this oops 
 
 class TrainingPipeline:
@@ -119,8 +119,26 @@ class TrainingPipeline:
         except Exception as e:
             logger.error(f"Error during model training: {e}")
             raise CustomException(e, sys)
+        
 
+    def start_model_pusher(self) -> model_prediction_report_artifact:
+        """
+        Starts the model pusher process: copies the trained model to a known
+        location so the API server can load it without re-training.
 
+        Returns:
+            model_prediction_report_artifact: The artifact pointing to the pushed model.
+        """
+        try:
+            logger = logggggg()
+            logger.info("Starting model pusher process.")
+            model_pusher = Model_Pusher(model_training_artifact=self.start_model_training())
+            report_artifact = model_pusher.push_model()
+            logger.info("Model pusher process completed successfully.")
+            return report_artifact
+        except Exception as e:
+            logger.error(f"Error during model pusher process: {e}")
+            raise CustomException(e, sys)
 
 
     def run_pipeline(self):
@@ -142,7 +160,10 @@ class TrainingPipeline:
 
             # Start model training and get the artifact
             training_artifact = self.start_model_training()
-            
+
+            # Start model pusher (saves prediction report YAML)
+            report_artifact = self.start_model_pusher()
+
             logger.info("Training pipeline completed successfully.")
         
         except Exception as e:

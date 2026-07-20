@@ -1,0 +1,4 @@
+mae: 0.36363222128352185
+model_name: RandomForestRegressor
+r2_score: 0.4267026315252135
+rmse: 0.5011723585202419

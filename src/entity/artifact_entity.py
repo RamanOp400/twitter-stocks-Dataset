@@ -34,3 +34,11 @@ class model_training_artifact:
     """
     model_save_file : float
     evaluation_report : float
+
+@dataclass
+class model_prediction_report_artifact:
+    """
+     Model prediction report artifact class to store the parameters required for generating prediction reports.
+
+    """
+    saved_model_file_path_yaml : str
