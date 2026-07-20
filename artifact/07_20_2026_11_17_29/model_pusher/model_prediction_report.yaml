@@ -1,0 +1,8 @@
+input_data:
+  Close: 65.9
+  Date: '2013-11-07'
+  High: 86.1
+  Low: 43.8
+  Open: 67.25
+predicted_volume:
+- 946515.7066639232

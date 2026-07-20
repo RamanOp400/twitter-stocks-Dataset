@@ -1,0 +1,10 @@
+.venv
+.git
+.kilo
+.agents
+__pycache__
+*.pyc
+*.pyo
+NoteBook
+logs
+.env

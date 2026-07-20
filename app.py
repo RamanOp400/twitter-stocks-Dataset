@@ -22,11 +22,11 @@ class InputData(BaseModel):
     Pydantic model for input data validation.
     Volume is NOT included because it is the prediction target.
     """
-    Date: str = Field(..., description="Stock date (e.g. '2013-11-07')")
-    Open: float = Field(..., description="Stock open price")
-    High: float = Field(..., description="Stock high price")
-    Low: float = Field(..., description="Stock low price")
-    Close: float = Field(..., description="Stock close price")
+    Date: str = Field(..., description="Stock date (e.g. '2013-11-07')", examples=["2013-11-07"])
+    Open: float = Field(..., description="Stock open price", examples=[45.25])
+    High: float = Field(..., description="Stock high price", examples=[46.10])
+    Low: float = Field(..., description="Stock low price", examples=[44.80])
+    Close: float = Field(..., description="Stock close price", examples=[45.90])
 
 
 # -------------------- Helper: find latest model --------------------
@@ -118,7 +118,7 @@ def predict(input_data: InputData):
         features += ['prev_day_range_pct', 'day_of_week', 'month']
 
         # Extract ONLY the features needed, grabbing the final row to predict
-        processed_features = df[features].iloc[-1:]
+        processed_features = df[features].iloc[-1:].fillna(0)
 
         # Make prediction
         prediction = model.predict(processed_features)

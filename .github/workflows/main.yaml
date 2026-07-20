@@ -1,0 +1,49 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  integration:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.13"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Lint with flake8 (Optional)
+        run: |
+          pip install flake8
+          # Stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      # Uncomment this if you want Github Actions to run your training pipeline!
+      # Note: You MUST add MONGO_DB_KEYS to your GitHub Repository Secrets for this to work.
+      # - name: Run Training Pipeline
+      #   env:
+      #     MONGO_DB_KEYS: ${{ secrets.MONGO_DB_KEYS }}
+      #   run: |
+      #     python demo.py
+
+      - name: Test Docker Build
+        run: |
+          docker build -t twitter-stocks-api:latest .

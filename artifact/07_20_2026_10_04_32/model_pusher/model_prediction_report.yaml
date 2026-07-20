@@ -1,9 +1,0 @@
-input_data:
-  Close: 5.0
-  Date: '2013-11-07'
-  High: 3.0
-  Low: 4.0
-  Open: 1.0
-  Volume: 2.0
-predicted_volume:
-- 16308346.583630173
